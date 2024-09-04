@@ -1,4 +1,3 @@
-
 //hangman game:
 /* a console-based hangman game where players guess letters to uncover a hidden word. Implement logic to track the number of attempts and provide hints if needed*/
 #include <iostream>
@@ -7,63 +6,65 @@
 #include <cstdlib>
 #include <ctime>
 
+using namespace std;
+
 void displayHangman(int wrongAttempts) {
-    std::cout << "  +---+" << std::endl;
-    std::cout << "  |   |" << std::endl;
+    cout << "  +---+" << endl;
+    cout << "  |   |" << endl;
 
     if (wrongAttempts >= 1) {
-        std::cout << "  O   |" << std::endl;
+        cout << "  O   |" << endl;
     } else {
-        std::cout << "      |" << std::endl;
+        cout << "      |" << endl;
     }
 
     if (wrongAttempts == 2) {
-        std::cout << " /";
+        cout << " /";
     } else if (wrongAttempts == 3) {
-        std::cout << " /|";
+        cout << " /|";
     } else if (wrongAttempts >= 4) {
-        std::cout << " /|\\";
+        cout << " /|\\" ;
     }
-    std::cout << "  |" << std::endl;
+    cout << "  |" << endl;
 
     if (wrongAttempts == 5) {
-        std::cout << " /    |" << std::endl;
+        cout << " /    |" << endl;
     } else if (wrongAttempts >= 6) {
-        std::cout << " / \\  |" << std::endl;
+        cout << " / \\  |" << endl;
     } else {
-        std::cout << "      |" << std::endl;
+        cout << "      |" << endl;
     }
 
-    std::cout << "      |" << std::endl;
-    std::cout << "=========" << std::endl;
+    cout << "      |" << endl;
+    cout << "=========" << endl;
 }
 
 int main() {
-    std::string words[] = {"apple", "banana", "orange", "strawberry", "grape", "pineapple"};
+    string words[] = {"apple", "banana", "orange", "strawberry", "grape", "pineapple"};
     const int numWords = sizeof(words) / sizeof(words[0]);
 
     char playAgain = 'y';
     
     while (playAgain == 'y' || playAgain == 'Y') {
         srand(time(0));
-        std::string word = words[rand() % numWords];
-        std::string hiddenWord(word.length(), '_');
+        string word = words[rand() % numWords];
+        string hiddenWord(word.length(), '_');
 
         int wrongAttempts = 0;
         const int maxWrongAttempts = 6;
 
-        std::cout << "Hangman Game" << std::endl;
-        std::cout << "Guess the word!" << std::endl;
+        cout << "Hangman Game" << endl;
+        cout << "Guess the word!" << endl;
 
         while (wrongAttempts < maxWrongAttempts) {
-            std::cout << std::endl;
+            cout << endl;
             displayHangman(wrongAttempts);
 
-            std::cout << "Word: " << hiddenWord << std::endl;
+            cout << "Word: " << hiddenWord << endl;
 
             char guess;
-            std::cout << "Enter your guess: ";
-            std::cin >> guess;
+            cout << "Enter your guess: ";
+            cin >> guess;
 
             bool found = false;
             for (int i = 0; i < word.length(); ++i) {
@@ -74,31 +75,32 @@ int main() {
             }
 
             if (hiddenWord == word) {
-                std::cout << "Congratulations! You guessed the word correctly: " << word << std::endl;
+                cout << "Congratulations! You guessed the word correctly: " << word << endl;
                 break;
             }
 
             if (!found) {
                 wrongAttempts++;
-                std::cout << "Wrong guess! Try again." << std::endl;
+                cout << "Wrong guess! Try again." << endl;
             }
         }
 
-        std::cout << std::endl;
+        cout << endl;
         displayHangman(wrongAttempts);
 
         if (wrongAttempts == maxWrongAttempts) {
-            std::cout << "Sorry, you couldn't guess the word. The word was: " << word << std::endl;
+            cout << "Sorry, you couldn't guess the word. The word was: " << word << endl;
         }
         
-        std::cout << "Do you want to play again? (y/n): ";
-        std::cin >> playAgain;
+        cout << "Do you want to play again? (y/n): ";
+        cin >> playAgain;
     }
 
-    std::cout << "Thank you for playing Hangman!" << std::endl;
+    cout << "Thank you for playing Hangman!" << endl;
 
     return 0;
 }
+
 
 /*
 Developed a Hangman game in C++ utilizing procedural programming concepts.Implemented key functionalities such as word selection, letter guessing, and feedback display.
